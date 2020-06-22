@@ -14,6 +14,7 @@ public class GamePlay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //when the game starts the Player can only place card in the first row the below for loop disables rest of the rows
         for (int a = 1; a < rows.Length; a++) {
             rows[a].GetComponent<CardSlots>().enabled = false;
         }
@@ -26,11 +27,13 @@ public class GamePlay : MonoBehaviour
     }
 
     public void NextTurn() {
+        //in each turn first the Ai plays the card, then a nested Coroutine initiates where each card move one step ahead
+        //finally the last coroutine executes to resolve the conflict if any 
         StartCoroutine("PlayAi");
     }
     public IEnumerator PlayAi()
     {
-        //Move One Card
+        //the below section of code selects one card at random from Ai's hand and moves it to the first row next to Ai's Hand
         Aimove = Ai.transform.GetChild(Random.Range(0, Ai.transform.childCount));
         Aimove.gameObject.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0,-64), .3f, true);
         yield return new WaitForSeconds(.3f);
@@ -71,6 +74,7 @@ public class GamePlay : MonoBehaviour
             }
         }
         yield return new WaitForSeconds(.1f);
+
         //Move Ai cards
         for (int i = 0; i < rows.Length; i++)
         {
