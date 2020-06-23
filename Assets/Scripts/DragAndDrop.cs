@@ -9,7 +9,7 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
     [SerializeField]
     private Canvas canvas;
     private CanvasGroup canvasgroup;
-    public Vector3 basepos;
+    public Vector3 basepos,localpos;
 
     private void Awake()
     {
@@ -43,6 +43,7 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         basepos = gameObject.GetComponent<RectTransform>().transform.position;
+        localpos = gameObject.GetComponent<RectTransform>().transform.localPosition;
         //Debug.Log("OnPointerDown On "+gameObject.GetComponent<CardValue>().card.Cardname);
     }
 

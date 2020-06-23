@@ -8,6 +8,8 @@ TagManager:
   - MainCanvas
   - Ai Cards
   - Player Cards
+  - GamePlay
+  - GameSetup
   layers:
   - Default
   - TransparentFX

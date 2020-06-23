@@ -81,4 +81,45 @@ public class GameSetup : MonoBehaviour
         }
 
     }
+    public void Pmove(float num) {
+        StartCoroutine("PlayerDraw",num);
+    }
+    public void AiMove(float num)
+    {
+        StartCoroutine("AiDraw", num);
+    }
+    IEnumerator PlayerDraw(float basex) {
+        yield return new WaitForSeconds(.5f);
+        int a = Random.Range(0, (Deck.Count - 1));
+        Player.Add(Deck[a]);
+        GameObject temp = Instantiate(Card);
+        temp.GetComponent<RectTransform>().SetParent(canvas.transform, false);
+        temp.GetComponent<CardValue>().card = Deck[a];
+        temp.GetComponent<Image>().sprite = Deck[a].Artwork;
+        //move animation used by implementing DoTween package 
+        temp.GetComponent<RectTransform>().DOAnchorPos(new Vector2(basex, -224), .5f, true);
+        Deck.RemoveAt(a);
+        temp.tag = "Player";
+        yield return new WaitForSeconds(.51f);
+        temp.GetComponent<RectTransform>().SetParent(playerHand.transform);
+        
+    }
+
+    IEnumerator AiDraw(float basex) {
+        yield return new WaitForSeconds(.5f);
+        int b = Random.Range(0, (Deck.Count - 1));
+        Ai.Add(Deck[b]);
+        GameObject temp1 = Instantiate(Card);
+        temp1.GetComponent<RectTransform>().SetParent(canvas.transform, false);
+        temp1.GetComponent<Image>().sprite = Deck[b].Artwork;
+        temp1.GetComponent<CardValue>().card = Deck[b];
+        temp1.GetComponent<DragAndDrop>().enabled = false;
+        //move animation used by implementing DoTween package 
+        temp1.GetComponent<RectTransform>().DOAnchorPos(new Vector2(basex, 224), .5f, true);
+        Deck.RemoveAt(b);
+        temp1.tag = "Ai";
+        yield return new WaitForSeconds(.51f);
+        temp1.GetComponent<RectTransform>().SetParent(AiHand.transform);
+    }
+
 }

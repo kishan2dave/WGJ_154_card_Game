@@ -16,8 +16,6 @@ MonoBehaviour:
   hp: 2
   Strength:
   - fire
-  - void
   weakness:
-  - earth
-  - air
+  - void
   Artwork: {fileID: 3757823640543870278, guid: 0a4b3f78b46853b4c825a342fc8bbcb4, type: 3}

@@ -15,10 +15,8 @@ MonoBehaviour:
   Cardname: void
   hp: 5
   Strength:
-  - earth
-  - air
-  weakness:
-  - fire
   - water
+  weakness:
+  - earth
   Artwork: {fileID: -5057682058818713911, guid: 0a4b3f78b46853b4c825a342fc8bbcb4,
     type: 3}

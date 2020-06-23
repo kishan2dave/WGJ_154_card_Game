@@ -15,10 +15,8 @@ MonoBehaviour:
   Cardname: earth
   hp: 1
   Strength:
-  - water
-  - fire
-  weakness:
   - void
+  weakness:
   - air
   Artwork: {fileID: -4301382377510740217, guid: 0a4b3f78b46853b4c825a342fc8bbcb4,
     type: 3}

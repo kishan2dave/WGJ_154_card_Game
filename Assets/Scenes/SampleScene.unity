@@ -1438,7 +1438,7 @@ GameObject:
   - component: {fileID: 1717558403}
   m_Layer: 0
   m_Name: GameSetup
-  m_TagString: Untagged
+  m_TagString: GameSetup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1784,7 +1784,7 @@ GameObject:
   - component: {fileID: 2062936859}
   m_Layer: 0
   m_Name: GamePlay
-  m_TagString: Untagged
+  m_TagString: GamePlay
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1815,6 +1815,7 @@ MonoBehaviour:
   playerDiscardDeck: {fileID: 591751652}
   AiDiscardDeck: {fileID: 318922258}
   Aimove: {fileID: 0}
+  Pmove: {fileID: 0}
 --- !u!4 &2062936860
 Transform:
   m_ObjectHideFlags: 0
