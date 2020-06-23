@@ -33,7 +33,7 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
     {
         canvasgroup.alpha = 1f;
         canvasgroup.blocksRaycasts = true ;
-        if (gameObject.transform.parent.tag.Equals("Player")) {
+        if (gameObject.transform.parent.tag.Equals("Player Hand")) {
             Debug.Log("Did not move");
             eventData.pointerDrag.GetComponent<RectTransform>().transform.position = eventData.pointerDrag.GetComponent<DragAndDrop>().basepos;
         }

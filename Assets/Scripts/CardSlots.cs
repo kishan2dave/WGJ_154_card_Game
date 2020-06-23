@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class CardSlots : MonoBehaviour, IDropHandler
 {
@@ -14,11 +15,16 @@ public class CardSlots : MonoBehaviour, IDropHandler
             cardType = eventData.pointerDrag.GetComponent<CardValue>().card.Cardname;
             eventData.pointerDrag.GetComponent<RectTransform>().SetParent(transform);
             gameObject.tag = "Player Cards";
+            
             GameObject.FindGameObjectWithTag("GameSetup").GetComponent<GameSetup>().Pmove(eventData.pointerDrag.GetComponent<DragAndDrop>().localpos.x);
-            GameObject.FindGameObjectWithTag("GamePlay").GetComponent<GamePlay>().MoveAllplayerCards();
+            if (gameObject.name.Equals("Row1"))
+            {
+                GameObject.FindGameObjectWithTag("GamePlay").GetComponent<GamePlay>().MoveAllplayerCards();
+            }
         }
         else {
             eventData.pointerDrag.GetComponent<RectTransform>().transform.position = eventData.pointerDrag.GetComponent<DragAndDrop>().basepos;
         }
     }
+
 }

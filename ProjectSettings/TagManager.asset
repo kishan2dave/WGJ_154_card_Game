@@ -10,6 +10,7 @@ TagManager:
   - Player Cards
   - GamePlay
   - GameSetup
+  - Player Hand
   layers:
   - Default
   - TransparentFX
