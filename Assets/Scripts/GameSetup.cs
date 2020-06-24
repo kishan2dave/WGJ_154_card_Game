@@ -40,13 +40,14 @@ public class GameSetup : MonoBehaviour
 
     IEnumerator Setup()
     {
-        int x = -224;
+        int x = -144;
         //here the for loop defines how many cards player and Ai gets in the beginning for eg :- 7
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < 5; i++)
         {
             int a = Random.Range(0, (Deck.Count - 1));
             Player.Add(Deck[a]);
             GameObject temp = Instantiate(Card);
+            temp.GetComponent<Animator>().enabled = false;
             temp.GetComponent<RectTransform>().SetParent(canvas.transform, false);
             temp.GetComponent<CardValue>().card = Deck[a];
             temp.GetComponent<Image>().sprite = Deck[a].Artwork;
@@ -54,6 +55,7 @@ public class GameSetup : MonoBehaviour
             temp.GetComponent<RectTransform>().DOAnchorPos(new Vector2(x, -224), .5f, true);
             Deck.RemoveAt(a);
             temp.tag = "Player";
+            FindObjectOfType<AudioManager>().play("Draw");
             yield return new WaitForSeconds(.25f);
             int b = Random.Range(0, (Deck.Count - 1));
             Ai.Add(Deck[b]);
@@ -67,6 +69,7 @@ public class GameSetup : MonoBehaviour
             Deck.RemoveAt(b);
             temp1.tag = "Ai";
             x += (72);
+            FindObjectOfType<AudioManager>().play("Draw");
             yield return new WaitForSeconds(.25f);
         }
         yield return new WaitForSeconds(.26f);
@@ -96,6 +99,7 @@ public class GameSetup : MonoBehaviour
             int a = Random.Range(0, (Deck.Count - 1));
             Player.Add(Deck[a]);
             GameObject temp = Instantiate(Card);
+            temp.GetComponent<Animator>().enabled = false;
             temp.GetComponent<RectTransform>().SetParent(canvas.transform, false);
             temp.GetComponent<CardValue>().card = Deck[a];
             temp.GetComponent<Image>().sprite = Deck[a].Artwork;
@@ -103,6 +107,7 @@ public class GameSetup : MonoBehaviour
             temp.GetComponent<RectTransform>().DOAnchorPos(new Vector2(basex, -224), .5f, true);
             Deck.RemoveAt(a);
             temp.tag = "Player";
+            FindObjectOfType<AudioManager>().play("Draw");
             yield return new WaitForSeconds(.51f);
             temp.GetComponent<RectTransform>().SetParent(playerHand.transform);
         }
@@ -126,6 +131,7 @@ public class GameSetup : MonoBehaviour
             temp1.GetComponent<RectTransform>().DOAnchorPos(new Vector2(basex, 224), .5f, true);
             Deck.RemoveAt(b);
             temp1.tag = "Ai";
+            FindObjectOfType<AudioManager>().play("Draw");
             yield return new WaitForSeconds(.51f);
             temp1.GetComponent<RectTransform>().SetParent(AiHand.transform);
         }

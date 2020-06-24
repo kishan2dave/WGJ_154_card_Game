@@ -16,9 +16,10 @@ public class CardSlots : MonoBehaviour, IDropHandler
             eventData.pointerDrag.GetComponent<RectTransform>().SetParent(transform);
             gameObject.tag = "Player Cards";
             
-            GameObject.FindGameObjectWithTag("GameSetup").GetComponent<GameSetup>().Pmove(eventData.pointerDrag.GetComponent<DragAndDrop>().localpos.x);
+            
             if (gameObject.name.Equals("Row1"))
             {
+                GameObject.FindGameObjectWithTag("GameSetup").GetComponent<GameSetup>().Pmove(eventData.pointerDrag.GetComponent<DragAndDrop>().localpos.x);
                 GameObject.FindGameObjectWithTag("GamePlay").GetComponent<GamePlay>().MoveAllplayerCards();
             }
         }

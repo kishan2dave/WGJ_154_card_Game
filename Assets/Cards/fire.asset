@@ -18,5 +18,4 @@ MonoBehaviour:
   - air
   weakness:
   - water
-  Artwork: {fileID: -8296346844692156156, guid: 0a4b3f78b46853b4c825a342fc8bbcb4,
-    type: 3}
+  Artwork: {fileID: 6530154018010001216, guid: 953d06e425ab4e943a99cd6d8ec959d2, type: 3}

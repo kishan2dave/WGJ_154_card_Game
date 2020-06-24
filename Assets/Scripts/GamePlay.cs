@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
+
 public class GamePlay : MonoBehaviour
 {
     public GameSetup gs;
@@ -32,9 +34,9 @@ public class GamePlay : MonoBehaviour
     public IEnumerator PlayAi()
     {
         //the below section of code selects one card at random from Ai's hand and moves it to the first row next to Ai's Hand
-        if (rows[5].tag.Equals("Untagged") && Ai.transform.childCount>0)
+        if (rows[5].tag.Equals("Untagged") && Ai.transform.childCount>1)
         {
-            Aimove = Ai.transform.GetChild(Random.Range(0, Ai.transform.childCount-1));
+            Aimove = Ai.transform.GetChild(Random.Range(1, Ai.transform.childCount-1));
             Aimove.gameObject.GetComponent<RectTransform>().DOAnchorPos(new Vector2(Aimove.transform.localPosition.x, -64), .3f, true);
             yield return new WaitForSeconds(.3f);
             Aimove.GetComponent<RectTransform>().SetParent(rows[5].transform);
@@ -49,12 +51,13 @@ public class GamePlay : MonoBehaviour
     }
     public IEnumerator MoveAllAiCards()
     {
-        for (int a = 0; a < Ai.transform.childCount; a++)
+        for (int a = 1; a < Ai.transform.childCount; a++)
         {
             if (Ai.transform.GetChild(a).GetComponent<CardValue>().card.Cardname.Equals(rows[5].GetComponent<CardSlots>().cardType))
             {
                 Aimove = Ai.transform.GetChild(a);
                 Aimove.gameObject.GetComponent<RectTransform>().DOAnchorPos(new Vector2(Aimove.transform.localPosition.x, -64), .3f, true);
+                FindObjectOfType<AudioManager>().play("Move");
                 yield return new WaitForSeconds(.3f);
                 Aimove.GetComponent<RectTransform>().SetParent(rows[5].transform);
                 a--;
@@ -69,10 +72,11 @@ public class GamePlay : MonoBehaviour
     }
     public IEnumerator MoveAllPlayerCards()
     {
-        for (int a = 0; a < Player.transform.childCount; a++) {
+        for (int a = 1; a < Player.transform.childCount; a++) {
             if (Player.transform.GetChild(a).GetComponent<CardValue>().card.Cardname.Equals(rows[0].GetComponent<CardSlots>().cardType)) {
                 Pmove = Player.transform.GetChild(a);
                 Pmove.gameObject.GetComponent<RectTransform>().DOAnchorPos(new Vector2(Pmove.transform.localPosition.x, 64), .3f, true);
+                FindObjectOfType<AudioManager>().play("Move");
                 yield return new WaitForSeconds(.31f);
                 Pmove.GetComponent<RectTransform>().SetParent(rows[0].transform);
                 a--;
@@ -117,6 +121,7 @@ public class GamePlay : MonoBehaviour
             Cards player = rows[i].transform.GetChild(0).GetComponent<CardValue>().card;
             Cards ai = rows[(i + 1)].transform.GetChild(0).GetComponent<CardValue>().card;
             foreach (Transform t in rows[(i + 1)].transform) {
+                t.GetComponent<Animator>().enabled = false;
                 t.GetComponent<Image>().sprite = t.GetComponent<CardValue>().card.Artwork;
                 yield return new WaitForSeconds(.2f);
             }
@@ -142,7 +147,6 @@ public class GamePlay : MonoBehaviour
                 // We will loop over Player cards for half the number of player cards
                 PlayerCountWeighted /= 2;
             }
-
             /** The PlayerCount and AiCount variable are now weighted with strength if needed */
 
             // Removing all the player cards that we need to
@@ -150,7 +154,8 @@ public class GamePlay : MonoBehaviour
             for (int j = AiCount - 1; j >= 0 && PlayerCountWeighted > 0; j--)
             {
                 PlayerCountWeighted--;
-                rows[(i + 1)].transform.GetChild(j).GetComponent<RectTransform>().DOAnchorPos(new Vector2(-350, 150), .5f, true);
+                rows[(i + 1)].transform.GetChild(j).GetComponent<RectTransform>().DOAnchorPos(new Vector2(-260, 108), .5f, true);
+                FindObjectOfType<AudioManager>().play("Destroy");
                 rows[(i + 1)].transform.GetChild(j).tag = "Untagged";
                 yield return new WaitForSeconds(.55f);
                 rows[(i + 1)].transform.GetChild(j).GetComponent<RectTransform>().SetParent(AiDiscardDeck.transform);
@@ -160,7 +165,8 @@ public class GamePlay : MonoBehaviour
             for (int j = PlayerCount - 1; j >= 0 && AiCountWeighted > 0; j--)
             {
                 AiCountWeighted--;
-                rows[i].transform.GetChild(j).GetComponent<RectTransform>().DOAnchorPos(new Vector2(-350, -60), .5f, true);
+                rows[i].transform.GetChild(j).GetComponent<RectTransform>().DOAnchorPos(new Vector2(-260, -75), .5f, true);
+                FindObjectOfType<AudioManager>().play("Destroy");
                 rows[i].transform.GetChild(j).tag = "Untagged";
                 yield return new WaitForSeconds(.55f);
                 rows[i].transform.GetChild(j).GetComponent<RectTransform>().SetParent(playerDiscardDeck.transform);
@@ -192,25 +198,28 @@ public class GamePlay : MonoBehaviour
                 Debug.Log("Nobody moves (should never happen !!)");
             }
         }
+       
         WinLoseCheck();
 
     }
 
-    private static void WinLoseCheck()
+    private void WinLoseCheck()
     {
-        if (GameObject.FindGameObjectsWithTag("Player").Length == 0)
+        if (GameObject.FindGameObjectsWithTag("Player").Length == 0 || rows[0].tag.Equals("Ai Cards"))
         {
+            PlayerPrefs.SetString("ResultText", "Ai Won");
             Debug.Log("Ai Won");
+            SceneManager.LoadScene("Menu");
         }
-        else if (GameObject.FindGameObjectsWithTag("Ai").Length == 0)
+        else if (GameObject.FindGameObjectsWithTag("Ai").Length == 0 || rows[5].tag.Equals("Player Cards"))
         {
+            PlayerPrefs.SetString("ResultText", "Player Won");
             Debug.Log("Player Won");
+            SceneManager.LoadScene("Menu");
         }
         else
         {
-            Debug.Log("Game Continues");
-            Debug.Log("Player " + GameObject.FindGameObjectsWithTag("Player").Length);
-            Debug.Log("Ai " + GameObject.FindGameObjectsWithTag("Ai").Length);
+            //Debug.Log("Game Continues");
         }
     }
 
@@ -242,6 +251,7 @@ public class GamePlay : MonoBehaviour
                         {
                             string cardType = rows[(i + 1)].transform.GetChild(0).GetComponent<CardValue>().card.Cardname;
                             rows[(i + 1)].transform.GetChild(0).GetComponent<RectTransform>().DOAnchorPos(new Vector2(rows[(i + 1)].transform.GetChild(0).transform.localPosition.x, -64), .3f, true);
+                            FindObjectOfType<AudioManager>().play("Move");
                             yield return new WaitForSeconds(.3f);
                             rows[(i + 1)].transform.GetChild(0).GetComponent<RectTransform>().SetParent(rows[i].transform);
                             rows[(i + 1)].tag = "Untagged";
@@ -278,6 +288,7 @@ public class GamePlay : MonoBehaviour
 
                             string cardType = rows[(i - 1)].transform.GetChild(0).GetComponent<CardValue>().card.Cardname;
                             rows[(i - 1)].transform.GetChild(0).GetComponent<RectTransform>().DOAnchorPos(new Vector2(rows[(i - 1)].transform.GetChild(0).transform.localPosition.x, 64), .3f, true);
+                            FindObjectOfType<AudioManager>().play("Move");
                             yield return new WaitForSeconds(.3f);
                             rows[(i - 1)].transform.GetChild(0).GetComponent<RectTransform>().SetParent(rows[i].transform);
                             rows[(i - 1)].tag = "Untagged";

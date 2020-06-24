@@ -11,6 +11,9 @@ TagManager:
   - GamePlay
   - GameSetup
   - Player Hand
+  - PlayButton
+  - Result
+  - Menu
   layers:
   - Default
   - TransparentFX
