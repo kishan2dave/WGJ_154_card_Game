@@ -495,7 +495,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: GAME NAME
+  m_text: ELEMENTAL\t WAVE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1c880bd7effc95e488116bc133f1dc29, type: 2}
   m_sharedMaterial: {fileID: 4114295085033345193, guid: 1c880bd7effc95e488116bc133f1dc29,
@@ -565,9 +565,9 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 513785449}
-    characterCount: 9
+    characterCount: 15
     spriteCount: 0
-    spaceCount: 1
+    spaceCount: 2
     wordCount: 2
     linkCount: 0
     lineCount: 1

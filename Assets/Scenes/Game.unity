@@ -151,22 +151,106 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - name: Draw
-    clip: {fileID: 8300000, guid: e646a6585165a284197c0b4bffd42c21, type: 3}
-    volume: 0.182
-    pitch: 1.05
+  - name: Deal1
+    clip: {fileID: 8300000, guid: 0e1d942ded650854d8e76a62de467ae7, type: 3}
+    volume: 1
+    pitch: 1
     source: {fileID: 0}
     loop: 0
-  - name: Move
-    clip: {fileID: 8300000, guid: f05dcf898b1bcf3409ca2f4b4c85b1ca, type: 3}
-    volume: 0.182
-    pitch: 1.05
+  - name: Deal2
+    clip: {fileID: 8300000, guid: 3d23229da3a6cb4419b724c72cd2952e, type: 3}
+    volume: 1
+    pitch: 1
     source: {fileID: 0}
     loop: 0
-  - name: Destroy
-    clip: {fileID: 8300000, guid: 50d93c4e2d32ad54ab6776eae3e0b0c7, type: 3}
-    volume: 0.182
-    pitch: 1.05
+  - name: Deal3
+    clip: {fileID: 8300000, guid: 12c784f2e3e559f4bab374ccee37c7b0, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Deal4
+    clip: {fileID: 8300000, guid: 66b7fc75fde89f748ade6fb5fab08c12, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Deal5
+    clip: {fileID: 8300000, guid: 3a2da34a3c75a5a48ad22d74323e0894, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Deal6
+    clip: {fileID: 8300000, guid: 87b65a4a6d8d6f24dafe74c13e78e838, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Deal7
+    clip: {fileID: 8300000, guid: 378109bd88a5a0e4ead1bc9a35c646a5, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Received1
+    clip: {fileID: 8300000, guid: 865003306ef40b84e86cb709055769a0, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Received2
+    clip: {fileID: 8300000, guid: 168395eae5971d846a5afd69cac195ad, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Received3
+    clip: {fileID: 8300000, guid: f9e2d8a9630224c48accfcb66d73d604, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Received4
+    clip: {fileID: 8300000, guid: 69430697d87eda14d8e2b1c49c9b5b37, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Received5
+    clip: {fileID: 8300000, guid: d440bc9a0533f9040815bd2dcac52fe3, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Received6
+    clip: {fileID: 8300000, guid: aae0c2cdf7450d5498403be647272270, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Received7
+    clip: {fileID: 8300000, guid: 999d0e1b746cb2d4c80dc6a7868de128, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Received8
+    clip: {fileID: 8300000, guid: 72792d77adb253e4183283a9e42cf5f9, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Received9
+    clip: {fileID: 8300000, guid: 89ced91f3ac1f244496a34a41e79d88e, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Received10
+    clip: {fileID: 8300000, guid: 140deb8b5b7a0274e95f787ce758fefc, type: 3}
+    volume: 1
+    pitch: 1
     source: {fileID: 0}
     loop: 0
 --- !u!4 &105380126

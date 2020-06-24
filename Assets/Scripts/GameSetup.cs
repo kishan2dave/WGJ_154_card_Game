@@ -52,11 +52,13 @@ public class GameSetup : MonoBehaviour
             temp.GetComponent<CardValue>().card = Deck[a];
             temp.GetComponent<Image>().sprite = Deck[a].Artwork;
             //move animation used by implementing DoTween package 
-            temp.GetComponent<RectTransform>().DOAnchorPos(new Vector2(x, -224), .5f, true);
+            FindObjectOfType<AudioManager>().play("Deal"+Random.Range(1,8));
+            temp.GetComponent<RectTransform>().DOAnchorPos(new Vector2(x, -224), .4f, true);
             Deck.RemoveAt(a);
             temp.tag = "Player";
-            FindObjectOfType<AudioManager>().play("Draw");
-            yield return new WaitForSeconds(.25f);
+            yield return new WaitForSeconds(.35f);
+            FindObjectOfType<AudioManager>().play("Received" + Random.Range(1, 11));
+
             int b = Random.Range(0, (Deck.Count - 1));
             Ai.Add(Deck[b]);
             GameObject temp1 = Instantiate(Card);
@@ -65,12 +67,13 @@ public class GameSetup : MonoBehaviour
             temp1.GetComponent<CardValue>().card = Deck[a];
             temp1.GetComponent<DragAndDrop>().enabled = false;
             //move animation used by implementing DoTween package 
-            temp1.GetComponent<RectTransform>().DOAnchorPos(new Vector2(x, 224), .5f, true);
+            FindObjectOfType<AudioManager>().play("Deal" + Random.Range(1, 8));
+            temp1.GetComponent<RectTransform>().DOAnchorPos(new Vector2(x, 224), .4f, true);
             Deck.RemoveAt(b);
             temp1.tag = "Ai";
             x += (72);
-            FindObjectOfType<AudioManager>().play("Draw");
-            yield return new WaitForSeconds(.25f);
+            yield return new WaitForSeconds(.35f);
+            FindObjectOfType<AudioManager>().play("Received" + Random.Range(1, 11));
         }
         yield return new WaitForSeconds(.26f);
         //once all the cards are dealt the below code transfers the card to their respective Hand ie Player hand and Ai's hand
@@ -104,12 +107,13 @@ public class GameSetup : MonoBehaviour
             temp.GetComponent<CardValue>().card = Deck[a];
             temp.GetComponent<Image>().sprite = Deck[a].Artwork;
             //move animation used by implementing DoTween package 
-            temp.GetComponent<RectTransform>().DOAnchorPos(new Vector2(basex, -224), .5f, true);
+            FindObjectOfType<AudioManager>().play("Deal" + Random.Range(1, 8));
+            temp.GetComponent<RectTransform>().DOAnchorPos(new Vector2(basex, -224), .4f, true);
             Deck.RemoveAt(a);
             temp.tag = "Player";
-            FindObjectOfType<AudioManager>().play("Draw");
-            yield return new WaitForSeconds(.51f);
+            yield return new WaitForSeconds(.4f);
             temp.GetComponent<RectTransform>().SetParent(playerHand.transform);
+            FindObjectOfType<AudioManager>().play("Received" + Random.Range(1, 11));
         }
         else {
             gameDeck.SetActive(false);
@@ -128,12 +132,13 @@ public class GameSetup : MonoBehaviour
             temp1.GetComponent<CardValue>().card = Deck[b];
             temp1.GetComponent<DragAndDrop>().enabled = false;
             //move animation used by implementing DoTween package 
-            temp1.GetComponent<RectTransform>().DOAnchorPos(new Vector2(basex, 224), .5f, true);
+            FindObjectOfType<AudioManager>().play("Deal" + Random.Range(1, 8));
+            temp1.GetComponent<RectTransform>().DOAnchorPos(new Vector2(basex, 224), .4f, true);
             Deck.RemoveAt(b);
             temp1.tag = "Ai";
-            FindObjectOfType<AudioManager>().play("Draw");
-            yield return new WaitForSeconds(.51f);
+            yield return new WaitForSeconds(.4f);
             temp1.GetComponent<RectTransform>().SetParent(AiHand.transform);
+            FindObjectOfType<AudioManager>().play("Received" + Random.Range(1, 11));
         }
         else {
             gameDeck.SetActive(false);

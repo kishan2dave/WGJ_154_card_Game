@@ -57,12 +57,19 @@ public class GamePlay : MonoBehaviour
             {
                 Aimove = Ai.transform.GetChild(a);
                 Aimove.gameObject.GetComponent<RectTransform>().DOAnchorPos(new Vector2(Aimove.transform.localPosition.x, -64), .3f, true);
-                FindObjectOfType<AudioManager>().play("Move");
-                yield return new WaitForSeconds(.3f);
+                FindObjectOfType<AudioManager>().play("Received" + Random.Range(1, 11));
+                yield return new WaitForSeconds(.31f);
                 Aimove.GetComponent<RectTransform>().SetParent(rows[5].transform);
                 a--;
                 gs.AiMove(Aimove.transform.localPosition.x);
             }
+        }
+
+        foreach (Transform t in rows[5].transform)
+        {
+            t.GetComponent<Animator>().enabled = false;
+            t.GetComponent<Image>().sprite = t.GetComponent<CardValue>().card.Artwork;
+            yield return new WaitForSeconds(.2f);
         }
         yield return new WaitForSeconds(.3f);
     }
@@ -76,7 +83,7 @@ public class GamePlay : MonoBehaviour
             if (Player.transform.GetChild(a).GetComponent<CardValue>().card.Cardname.Equals(rows[0].GetComponent<CardSlots>().cardType)) {
                 Pmove = Player.transform.GetChild(a);
                 Pmove.gameObject.GetComponent<RectTransform>().DOAnchorPos(new Vector2(Pmove.transform.localPosition.x, 64), .3f, true);
-                FindObjectOfType<AudioManager>().play("Move");
+                FindObjectOfType<AudioManager>().play("Received" + Random.Range(1, 11));
                 yield return new WaitForSeconds(.31f);
                 Pmove.GetComponent<RectTransform>().SetParent(rows[0].transform);
                 a--;
@@ -106,13 +113,13 @@ public class GamePlay : MonoBehaviour
         // Nothing to do if we didn't find any conflict
         if (conflictRowId == -1)
         {
-            Debug.Log("No conflict yet");
+            //Debug.Log("No conflict yet");
             yield return new WaitForSeconds(.3f);
             StartCoroutine("MoveAhead");
         }
         else
         {
-            Debug.Log("Conflict happening");
+            //Debug.Log("Conflict happening");
 
             int i = conflictRowId;
 
@@ -120,11 +127,7 @@ public class GamePlay : MonoBehaviour
             int AiCount = rows[(i + 1)].transform.childCount;
             Cards player = rows[i].transform.GetChild(0).GetComponent<CardValue>().card;
             Cards ai = rows[(i + 1)].transform.GetChild(0).GetComponent<CardValue>().card;
-            foreach (Transform t in rows[(i + 1)].transform) {
-                t.GetComponent<Animator>().enabled = false;
-                t.GetComponent<Image>().sprite = t.GetComponent<CardValue>().card.Artwork;
-                yield return new WaitForSeconds(.2f);
-            }
+            
             yield return new WaitForSeconds(.5f);
             // Saving current weight of counts for the normal case where there is no strenght/weakness involved
             int PlayerCountWeighted = PlayerCount;
@@ -154,8 +157,8 @@ public class GamePlay : MonoBehaviour
             for (int j = AiCount - 1; j >= 0 && PlayerCountWeighted > 0; j--)
             {
                 PlayerCountWeighted--;
-                rows[(i + 1)].transform.GetChild(j).GetComponent<RectTransform>().DOAnchorPos(new Vector2(-260, 108), .5f, true);
-                FindObjectOfType<AudioManager>().play("Destroy");
+                rows[(i + 1)].transform.GetChild(j).GetComponent<RectTransform>().DOAnchorPos(new Vector2(-255, 108), .5f, true);
+                //FindObjectOfType<AudioManager>().play("Destroy");
                 rows[(i + 1)].transform.GetChild(j).tag = "Untagged";
                 yield return new WaitForSeconds(.55f);
                 rows[(i + 1)].transform.GetChild(j).GetComponent<RectTransform>().SetParent(AiDiscardDeck.transform);
@@ -164,9 +167,10 @@ public class GamePlay : MonoBehaviour
             // Removing all the Ai cards that we need to
             for (int j = PlayerCount - 1; j >= 0 && AiCountWeighted > 0; j--)
             {
+                    
                 AiCountWeighted--;
-                rows[i].transform.GetChild(j).GetComponent<RectTransform>().DOAnchorPos(new Vector2(-260, -75), .5f, true);
-                FindObjectOfType<AudioManager>().play("Destroy");
+                rows[i].transform.GetChild(j).GetComponent<RectTransform>().DOAnchorPos(new Vector2(-253, -75), .5f, true);
+                //FindObjectOfType<AudioManager>().play("Destroy");
                 rows[i].transform.GetChild(j).tag = "Untagged";
                 yield return new WaitForSeconds(.55f);
                 rows[i].transform.GetChild(j).GetComponent<RectTransform>().SetParent(playerDiscardDeck.transform);
@@ -176,20 +180,20 @@ public class GamePlay : MonoBehaviour
             // Moving
             if ((rows[i].transform.childCount == 0) && (rows[(i + 1)].transform.childCount == 0))
             {
-                Debug.Log("Both Should Move !");
+                //Debug.Log("Both Should Move !");
                 rows[i].tag = "Untagged";
                 rows[(i + 1)].tag = "Untagged";
                 StartCoroutine("MoveAhead");
             }
             else if (rows[i].transform.childCount == 0)
             {
-                Debug.Log("Ai Should Move");
+                //Debug.Log("Ai Should Move");
                 rows[i].tag = "Untagged";
                 StartCoroutine("AiMove");
             }
             else if (rows[(i + 1)].transform.childCount == 0)
             {
-                Debug.Log("Player Should Move");
+               //Debug.Log("Player Should Move");
                 rows[(i + 1)].tag = "Untagged";
                 StartCoroutine("PlayerMove");
             }
@@ -251,7 +255,7 @@ public class GamePlay : MonoBehaviour
                         {
                             string cardType = rows[(i + 1)].transform.GetChild(0).GetComponent<CardValue>().card.Cardname;
                             rows[(i + 1)].transform.GetChild(0).GetComponent<RectTransform>().DOAnchorPos(new Vector2(rows[(i + 1)].transform.GetChild(0).transform.localPosition.x, -64), .3f, true);
-                            FindObjectOfType<AudioManager>().play("Move");
+                            FindObjectOfType<AudioManager>().play("Received" + Random.Range(1, 11));
                             yield return new WaitForSeconds(.3f);
                             rows[(i + 1)].transform.GetChild(0).GetComponent<RectTransform>().SetParent(rows[i].transform);
                             rows[(i + 1)].tag = "Untagged";
@@ -288,7 +292,7 @@ public class GamePlay : MonoBehaviour
 
                             string cardType = rows[(i - 1)].transform.GetChild(0).GetComponent<CardValue>().card.Cardname;
                             rows[(i - 1)].transform.GetChild(0).GetComponent<RectTransform>().DOAnchorPos(new Vector2(rows[(i - 1)].transform.GetChild(0).transform.localPosition.x, 64), .3f, true);
-                            FindObjectOfType<AudioManager>().play("Move");
+                            FindObjectOfType<AudioManager>().play("Received" + Random.Range(1, 11));
                             yield return new WaitForSeconds(.3f);
                             rows[(i - 1)].transform.GetChild(0).GetComponent<RectTransform>().SetParent(rows[i].transform);
                             rows[(i - 1)].tag = "Untagged";
